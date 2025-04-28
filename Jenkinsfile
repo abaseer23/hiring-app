@@ -10,7 +10,7 @@ pipeline {
        
         stage('Docker Build') {
             steps {
-                sh "docker build --tag hiring-app:latest:$BUILD_NUMBER"
+                sh "docker build -t hiring-app:$BUILD_NUMBER"
             }
         }
       stage('Push to DockerHub') {
