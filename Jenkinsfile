@@ -10,15 +10,19 @@ pipeline {
        
         stage('Docker Build') {
             steps {
-                sh "docker build . -t ab002/tomcat:$BUILD_NUMBER"
+                sh "docker build --tag hiring-app:latest:$BUILD_NUMBER"
             }
         }
-        stage('Docker Push') {
+      stage('Push to DockerHub') {
+            environment {
+                DOCKERHUB_CREDENTIALS = credentials('docker')  // 'docker' is the credential ID
+            }
             steps {
-                withCredentials([string(credentialsId: 'docker', variable: 'hubPwd')]) {
-                    sh "docker login -u ab002 -p ${hubPwd}"
-                    sh "docker push ab002/tomcat:$BUILD_NUMBER"
-                }
+                sh """
+                    echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin
+                    docker tag hiring-app:latest ab002/tomcat:latest
+                    docker push ab002/tomcat:latest
+                """
             }
         }
         stage('Checkout K8S manifest SCM'){
