@@ -15,7 +15,7 @@ pipeline {
         }
         stage('Docker Push') {
             steps {
-                withCredentials([string(credentialsId: 'docker-hub', variable: 'hubPwd')]) {
+                withCredentials([string(credentialsId: 'docker', variable: 'hubPwd')]) {
                     sh "docker login -u ab002 -p ${hubPwd}"
                     sh "docker push ab002/tomcat:$BUILD_NUMBER"
                 }
