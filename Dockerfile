@@ -4,7 +4,7 @@ ENV NEXUS_REPO_URL="http://16.16.198.193:8082/repository/ex/"
 ENV ARTIFACT_PATH="in/javahome/hiring/0.1/hiring-0.1.war"
 
 # Download the WAR file from Nexus and copy it to the Tomcat webapps directory
-ADD $NEXUS_REPO_URL$ARTIFACT_PATH /usr/local/tomcat/webapps/hiring.war
+COPY $NEXUS_REPO_URL$ARTIFACT_PATH /usr/local/tomcat/webapps/hiring.war
 
 # Expose port 8080 (Tomcat's default port)
 EXPOSE 8080
