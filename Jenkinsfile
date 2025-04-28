@@ -25,11 +25,6 @@ pipeline {
                 """
             }
         }
-        stage('Checkout K8S manifest SCM'){
-            steps {
-              git branch: 'main', url: 'https://github.com/abaseer23/Hiring-app-argocd.git'
-            }
-        } 
        
-            }
+        }
 } 
